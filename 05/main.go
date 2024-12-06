@@ -16,6 +16,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	defer file.Close()
 	manuals := parseInput(file)
 
 	r := addCorrectMiddlePages(manuals)
@@ -29,6 +30,7 @@ func example() {
 	if err != nil {
 		panic(err)
 	}
+	defer file.Close()
 	manuals := parseInput(file)
 	r := addCorrectMiddlePages(manuals)
 	fmt.Println("Example 1 result:", r)
@@ -107,12 +109,7 @@ func fixAndAddInccorectPages(m manuals) int {
 				moveTo = index
 			}
 			if moveTo > -1 {
-				tmp := make([]string, 0, len(u))
-				tmp = append(tmp, u[:moveTo]...)
-				tmp = append(tmp, currentPage)
-				tmp = append(tmp, u[moveTo:currentPageIndex]...)
-				tmp = append(tmp, u[currentPageIndex+1:]...)
-				u = tmp
+				u[moveTo], u[currentPageIndex] = u[currentPageIndex], u[moveTo]
 				currentPageIndex = -1
 				continue
 			}
