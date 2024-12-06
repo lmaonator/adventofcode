@@ -68,6 +68,9 @@ func parseInput(r io.Reader) manuals {
 			m.updates = append(m.updates, split)
 		}
 	}
+	if err := scanner.Err(); err != nil {
+		panic(err)
+	}
 	return m
 }
 
