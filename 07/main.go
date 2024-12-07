@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"math"
 	"os"
 	"strconv"
 	"strings"
@@ -82,7 +83,7 @@ func solve(result, curr int, remaining []int, concat bool) bool {
 	}
 
 	if concat && len(remaining) >= 1 {
-		curr, _ = strconv.Atoi(fmt.Sprintf("%d%d", curr, next))
+		curr = int(math.Pow(10, 1+math.Floor(math.Log10(float64(next)))))*curr + next
 		if curr <= result && solve(result, curr, remaining[1:], concat) {
 			return true
 		}
