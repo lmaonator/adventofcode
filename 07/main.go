@@ -21,6 +21,7 @@ func load(f string) {
 	if err != nil {
 		panic(err)
 	}
+	defer file.Close()
 	scanner := bufio.NewScanner(file)
 	equations = []equation{}
 	for scanner.Scan() {
