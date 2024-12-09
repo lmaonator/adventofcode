@@ -42,6 +42,9 @@ func load(f string) {
 		height = max(height, y)
 		width = max(width, len(l))
 	}
+	if err := scanner.Err(); err != nil {
+		panic(err)
+	}
 }
 
 func printAntinodeMap() {
