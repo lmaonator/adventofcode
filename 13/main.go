@@ -58,13 +58,13 @@ func getTokens(claws []Claw, offset int) int {
 
 func solveForCost(c Claw, offset int) int {
 	pY, pX := c.Prize.Y+offset, c.Prize.X+offset
-	div := (c.A.X*c.B.Y - c.A.Y*c.B.X)
-	A := (pX*c.B.Y - pY*c.B.X)
+	div := c.A.X*c.B.Y - c.A.Y*c.B.X
+	A := pX*c.B.Y - pY*c.B.X
 	if A%div != 0 {
 		return 0
 	}
 	A = A / div
-	B := (pY*c.A.X - pX*c.A.Y)
+	B := pY*c.A.X - pX*c.A.Y
 	if B%div != 0 {
 		return 0
 	}
