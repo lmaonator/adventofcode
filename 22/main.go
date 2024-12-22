@@ -73,17 +73,6 @@ func part2(secrets []int) int {
 	return bananas
 }
 
-func Intersection(a, b map[[4]int]int) (map[[4]int]int, int) {
-	highest := 0
-	r := map[[4]int]int{}
-	for k, va := range a {
-		bananas := va + b[k]
-		r[k] = bananas
-		highest = max(highest, bananas)
-	}
-	return r, highest
-}
-
 func main() {
 	secrets := load("example.txt")
 	fmt.Println("Example 1:", part1(secrets))
