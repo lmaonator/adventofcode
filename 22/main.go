@@ -45,11 +45,11 @@ func part1(secrets []int) int {
 
 func part2(secrets []int) int {
 	bananas := 0
-	bananaMap := map[[4]int]int{}
+	bananaMap := map[[4]int8]int{}
+	seen := map[[4]int8]struct{}{}
 	for _, s := range secrets {
+		mapKey := [4]int8{}
 		last := s % 10
-		seen := map[[4]int]struct{}{}
-		mapKey := [4]int{}
 		for i := range 2000 {
 			s = nextNumber(s)
 			price := s % 10
@@ -58,7 +58,7 @@ func part2(secrets []int) int {
 			mapKey[0] = mapKey[1]
 			mapKey[1] = mapKey[2]
 			mapKey[2] = mapKey[3]
-			mapKey[3] = change
+			mapKey[3] = int8(change)
 			if i >= 3 {
 				if _, ok := seen[mapKey]; !ok {
 					seen[mapKey] = struct{}{}
@@ -68,6 +68,7 @@ func part2(secrets []int) int {
 			}
 			last = price
 		}
+		clear(seen)
 	}
 	return bananas
 }
