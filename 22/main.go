@@ -44,33 +44,27 @@ func part1(secrets []int) int {
 }
 
 func part2(secrets []int) int {
-	bananas := 0
-	bananaMap := map[[4]int8]int{}
-	seen := map[[4]int8]struct{}{}
+	bananas := int16(0)
+	bananaMap := make([]int16, 19*19*19*19)
+	seen := make([]bool, 19*19*19*19)
 	for _, s := range secrets {
-		mapKey := [4]int8{}
 		last := s % 10
+		key := 0
 		for i := range 2000 {
 			s = nextNumber(s)
 			price := s % 10
 			change := price - last
-
-			mapKey[0] = mapKey[1]
-			mapKey[1] = mapKey[2]
-			mapKey[2] = mapKey[3]
-			mapKey[3] = int8(change)
-			if i >= 3 {
-				if _, ok := seen[mapKey]; !ok {
-					seen[mapKey] = struct{}{}
-					bananaMap[mapKey] += price
-					bananas = max(bananas, bananaMap[mapKey])
-				}
+			key = (change+9)*19*19*19 + key/19
+			if i >= 3 && !seen[key] {
+				seen[key] = true
+				bananaMap[key] += int16(price)
+				bananas = max(bananas, bananaMap[key])
 			}
 			last = price
 		}
 		clear(seen)
 	}
-	return bananas
+	return int(bananas)
 }
 
 func main() {
